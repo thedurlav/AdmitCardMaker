@@ -31,7 +31,7 @@
         }
         .admit-card-container {
           page-break-after: always;
-          border: 1px solid #d1d5db; 
+          border: 1px solid black; 
         }
         .admit-card-container:last-child {
           page-break-after: avoid;
@@ -39,24 +39,23 @@
         .noprint {
           display: none;
         }
-        body {
-          padding: 0;
-        }
+       
         #admitCardDisplay {
           margin-top: 0;
+          padding: 0;
         }
         .pageDiv {
           display: flex;
           flex-direction: column;
           justify-content: space-between;
           page-break-after: always;
-          height: 297mm; 
+          height: 305mm; 
         }
       }
     </style>
   </head>
   <body
-    class="bg-gray-100 text-gray-800 p-8 flex flex-col items-center min-h-screen font-sans"
+    class="bg-gray-100 text-gray-800 flex flex-col items-center min-h-screen font-sans px-8"
   >
     <div
       class="container max-w-3xl w-full bg-white p-8 md:p-12 rounded-2xl shadow-xl flex flex-col gap-6"
@@ -66,6 +65,27 @@
       </h1>
 
       <div class="flex flex-col gap-4">
+        <!-- New input fields for School and Exam Name -->
+        <div class="flex flex-col">
+          <label for="schoolName" class="font-semibold text-gray-700 mb-1">School Name:</label>
+          <input
+            type="text"
+            id="schoolName"
+            placeholder="e.g., BHN English Hr Sec School"
+            class="p-3 border border-gray-300 rounded-lg"
+          />
+        </div>
+
+        <div class="flex flex-col">
+          <label for="examName" class="font-semibold text-gray-700 mb-1">Exam Name:</label>
+          <input
+            type="text"
+            id="examName"
+            placeholder="e.g., Quarterly Exam Session 2025-26"
+            class="p-3 border border-gray-300 rounded-lg"
+          />
+        </div>
+
         <div class="flex flex-col">
           <label for="studentsFile" class="font-semibold text-gray-700 mb-1"
             >Upload Students File (.xlsx):</label
@@ -142,6 +162,9 @@
       const studentSelect = document.getElementById("studentSelect");
       const generateBtn = document.getElementById("generateBtn");
       const admitCardDisplay = document.getElementById("admitCardDisplay");
+      
+      const schoolNameInput = document.getElementById("schoolName");
+      const examNameInput = document.getElementById("examName");
 
       const checkFilesLoaded = () => {
         if (studentsData.length > 0 && timetableData.length > 0) {
@@ -222,8 +245,14 @@
       };
 
       const generateAdmitCardHtml = (student) => {
-        const schoolName = "BHN English Hr Sec School";
-        const examName = "Quarterly Exam Session 2025-26";
+        // Read the dynamic values from the new input fields
+        const schoolName = schoolNameInput.value;
+        const examName = examNameInput.value;
+
+        // Validation for the new fields
+        if (!schoolName || !examName) {
+            return '<div class="text-center text-red-500">Please enter a School Name and an Exam Name.</div>';
+        }
 
         const studentTimetable = timetableData.filter(
           (exam) => exam.Class == student.Class
@@ -309,6 +338,12 @@
         `;
       };
       generateBtn.addEventListener("click", () => {
+        // Validate new input fields
+        if (!schoolNameInput.value || !examNameInput.value) {
+            alert("Please enter both the School Name and Exam Name.");
+            return;
+        }
+
         const selectedValue = studentSelect.value;
         let studentsToProcess = [];
 
