@@ -12,11 +12,13 @@
         extend: {
           fontFamily: {
             sans: ["Inter", "sans-serif"],
+            cambria: ['Cambria', 'Caladea', 'Georgia', 'Times New Roman', 'serif'],
           },
         },
       },
     };
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Caladea&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     @media print {
@@ -283,13 +285,13 @@
                 <div class="flex items-center mb-4 pb-2 border-b-2 border-gray-600">
                     ${logoElement}
                     <div>
-                        <h2 class="text-2xl font-bold text-gray-800">${schoolName}</h2>
+                        <h2 class="text-2xl font-bold text-gray-800 font-cambria">${schoolName}</h2>
                         <div class="flex items-start gap-x-14" style="margin-top: -4px;">
                           <div>
-                            <span class="text-xs text-gray-700 font-light italic"> ${schoolAddress}</span>
+                            <span class="text-xs text-gray-800 italic font-cambria"> ${schoolAddress}</span>
                           </div>
                           <div>
-                            <p class="text-base text-gray-600">${examName}</p>
+                            <p class="text-base text-gray-800 font-cambria">${examName}</p>
                           </div>
                         </div>
                     </div>
