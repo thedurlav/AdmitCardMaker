@@ -13,11 +13,13 @@
           fontFamily: {
             sans: ["Inter", "sans-serif"],
             cambria: ['Cambria', 'Caladea', 'Georgia', 'Times New Roman', 'serif'],
+            arya: ['Arya', 'Caldea', 'sans-serif'],
           },
         },
       },
     };
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Arya:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Caladea&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
@@ -124,6 +126,8 @@
     let studentsData = [];
     let timetableData = [];
     let logoData = null;
+    const isHindi = text => /[\u0900-\u097F]/.test(text);
+
 
     const studentsFile = document.getElementById("studentsFile");
     const timetableFile = document.getElementById("timetableFile");
@@ -285,10 +289,10 @@
                 <div class="flex items-center mb-4 pb-2 border-b-2 border-gray-600">
                     ${logoElement}
                     <div>
-                        <h2 class="text-3xl font-bold text-gray-800 font-cambria">${schoolName}</h2>
-                        <div class="flex justify-between" style="margin-top: -4px; width: 180mm;">
+                        <h2 class="text-3xl font-bold text-gray-800 ${isHindi(schoolName) ? 'font-arya' : 'font-cambria'}">${schoolName}</h2>
+                        <div class="flex justify-between" style=" width: 180mm;">
                           <div>
-                            <span class="text-xs text-gray-700 italic font-cambria"> ${schoolAddress}</span>
+                            <span class="text-xs text-gray-700 italic ${isHindi(schoolAddress) ? 'font-arya' : 'font-inter'}"> ${schoolAddress}</span>
                           </div>
                           <div>
                             <p class="text-xl text-gray-800 font-cambria">${examName}</p>
@@ -299,7 +303,7 @@
                 <div class="grid grid-cols-2 gap-y-1 gap-x-4 text-sm">
                     <p><strong class="text-gray-700">Name:</strong> ${student.Name.toUpperCase()}</p>
                     <p><strong class="text-gray-700">Roll No:</strong> ${student.RollNo}</p>
-                    <p><strong class="text-gray-700">Father's Name:</strong> ${student["Father's Name"]}</p>
+                    <p><strong class="text-gray-700">Father's Name:</strong> ${student["Father's Name"] ?? " "}</p>
                     <p><strong class="text-gray-700">Class:</strong> ${student.Class}</p>
                 </div>
                 <div class="flex justify-between items-center mt-4 mb-2">
